@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+.sensor-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Jarak antar sensor */
+  margin-bottom: 30px;
+}
+
+.sensor {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(30% - 20px); /* Set width untuk setiap kotak sensor */
+}
+
+p {
+  font-size: 18px;
+}
+
+.chart-container {
+  margin-bottom: 30px;
+}
+
+canvas {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
