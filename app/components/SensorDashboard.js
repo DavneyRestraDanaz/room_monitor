@@ -6,12 +6,18 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables); // Register all necessary components
 
 async function fetchSensorData() {
-    const response = await fetch('http://localhost:3000/api/sensors'); // Fetch from Next.js API
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+        const response = await fetch('https://room-monitor.vercel.app/api/sensors');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("Data fetched from API:", data); // Tambahkan log untuk memeriksa data
+        return data.data;
+    } catch (error) {
+        console.error("Error fetching sensor data:", error);
+        return [];
     }
-    const data = await response.json();
-    return data.data; // Assuming the response format
 }
 
 export default function SensorDashboard() {
@@ -21,7 +27,10 @@ export default function SensorDashboard() {
     useEffect(() => {
         const fetchDataAndRenderChart = async () => {
             const data = await fetchSensorData();
-            setSensorData(data); // Store sensor data in state
+            setSensorData(data);
+            console.log(data); // Store sensor data in state
+
+            if (data.length === 0) return; // Exit if no data
 
             // Prepare data for the chart
             const labels = data.map(sensor => new Date(sensor.created_at).toLocaleString());
